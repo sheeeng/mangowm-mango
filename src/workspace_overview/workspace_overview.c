@@ -3409,8 +3409,10 @@ static bool wsov_scroll_to(double offset) {
 
 static bool wsov_animate_scroll_to(double offset) {
 	double clamped = wsov_clamp_scroll(offset);
-	if (fabs(clamped - wsov.scroll_offset) < 0.5)
+	if (fabs(clamped - wsov.scroll_offset) < 0.5) {
+		wsov.scroll_animating = false;
 		return false;
+	}
 	if (!config.animations) {
 		wsov.scroll_animating = false;
 		wsov.scroll_offset = clamped;
